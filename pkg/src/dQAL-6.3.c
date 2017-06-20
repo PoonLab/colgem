@@ -15,16 +15,16 @@ static double *parms;
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 #define max(a, b) (((a) < (b)) ? (b) : (a))
 
-#define m (int)parms[0]
-#define treeT parms[1]
-#define hres parms[2]
-#define  Atotal parms[3]
+#define m (int)parms[0]  // number of demes
+#define treeT parms[1]  // maximum node height in tree
+#define hres parms[2]  // resolution of time (height) axis
+#define  Atotal parms[3]  // sum of A at height 0, across all demes
 
-#define F(i, k,l) parms[(int)(4 + hres * (l*m +k ) + i)]
+#define F(i, k,l) parms[(int)(4 + hres * (l*m +k ) + i)]  // birth rates
 #define fend (int)(4 + hres * pow(m,2))
-#define G(i, k,l) parms[fend + (int)(hres * (l*m +k ) + i)]
+#define G(i, k,l) parms[fend + (int)(hres * (l*m +k ) + i)]  // migration rates
 #define gend (int)(4 + 2 * hres * pow(m,2))
-#define Y(i, k)  parms[gend + (int)(hres*k+i)]
+#define Y(i, k)  parms[gend + (int)(hres*k+i)]  // number of infections
 
 /* initializers  */
 void initfunc(void (* odeparms)(int *, double *))
@@ -56,10 +56,10 @@ void dQAL( int *neq, double *t, double *y, double *ydot, double *yout, int*ip)
 	int k,l,z,w;
 	
 	double a[m]; //normalized nlft 
-	double sumA = 0.; 
+	double sumA = 0.;  // A(s)  (summed across demes, for time [s])
 	for (k = 0; k < m; k++) sumA += A(k);
 	double r = Atotal / sumA;
-	for (k = 0; k < m; k++) { 
+	for (k = 0; k < m; k++) {  // for each deme
 		dA(k) = 0.;
 		if (Y(i,k) > 0) {
 			a[k] = r *  A(k)/ Y(i,k);
