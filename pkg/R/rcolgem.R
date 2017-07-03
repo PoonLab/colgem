@@ -1395,7 +1395,7 @@ if (s!=1) warning('Tree simulator assumes times given in equal increments')
 	extantLines <- which( isExtant) 
 	nExtant <- sum(isExtant)
 	
-	print(paste(date(), 'simulate tree'))
+	#print(paste(date(), 'simulate tree'))
 	# simulate
 	if (length(extantLines) > 1){
 		A0 <- colSums(as.matrix(sortedSampleStates[extantLines,], nrow=length(extantLines)) )
@@ -1946,7 +1946,7 @@ if (s!=1) warning('Tree simulator assumes times given in equal increments')
 	lstates[1:n,]	<-  sortedSampleStates
 	mstates[1:n,] 	<- lstates[1:n,]
 	
-	print(paste(date(), 'simulate tree'))
+	#print(paste(date(), 'simulate tree'))
 	# simulate
 	if (length(extantLines) > 1){
 		A0 <- colSums(sortedSampleStates[extantLines,] ) 
